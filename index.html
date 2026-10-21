@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Price Prediction</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #00000015;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e293b;
+        }
+
+        p {
+            text-align: center;
+            color: #64748b;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px;
+            margin-top: 7px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            margin-top: 22px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .result {
+            margin-top: 22px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            margin-top: 20px;
+            color: #b91c1c;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>🚗 Car Price Prediction</h1>
+    <p>Estimate the selling price of a used car</p>
+
+    <form method="POST">
+        <label>Car Name</label>
+        <input type="text" name="Car_Name" required
+               placeholder="e.g. ritz">
+
+        <label>Manufacturing Year</label>
+        <input type="number" name="Year"
+               min="1990" max="2026" value="2016" required>
+
+        <label>Present Price (in lakhs)</label>
+        <input type="number" name="Present_Price"
+               min="0.01" step="0.01" required>
+
+        <label>Kilometers Driven</label>
+        <input type="number" name="Driven_kms"
+               min="0" required>
+
+        <label>Fuel Type</label>
+        <select name="Fuel_Type" required>
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="CNG">CNG</option>
+        </select>
+
+        <label>Seller Type</label>
+        <select name="Selling_type" required>
+            <option value="Dealer">Dealer</option>
+            <option value="Individual">Individual</option>
+        </select>
+
+        <label>Transmission</label>
+        <select name="Transmission" required>
+            <option value="Manual">Manual</option>
+            <option value="Automatic">Automatic</option>
+        </select>
+
+        <label>Previous Owners</label>
+        <select name="Owner" required>
+            <option value="0">First owner</option>
+            <option value="1">One previous owner</option>
+            <option value="2">Two previous owners</option>
+            <option value="3">Three previous owners</option>
+        </select>
+
+        <button type="submit">Predict Selling Price</button>
+    </form>
+
+    {% if prediction is not none %}
+    <div class="result">
+        <h2>Estimated Selling Price</h2>
+        <h1>₹{{ prediction }} lakh</h1>
+        <p>This is an estimated price, not a guaranteed market value.</p>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+</div>
+</body>
+</html>
